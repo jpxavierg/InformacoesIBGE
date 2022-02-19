@@ -8,14 +8,12 @@ class InformacoesIBGESpider(scrapy.Spider):
     print(start_urls)
 
     def parse(self, response):
-        #(-1) porque o Python inicia com 0 (0 até 11 --> 12 execuções)
-        cont = len(response.css('.ind-label p::text').getall()) - 1
-        i = 0
-        while i <= cont:
+        cont = len(response.css('.ind-label p::text').getall())
+        for i in range(cont):
             yield {
                 'rotulo': response.css('.ind-label p::text')[i].get(),
                 'valor': response.css('.ind-value::text')[i].get()
                 }
-            i += 1
+
 
         pass
